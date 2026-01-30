@@ -230,12 +230,24 @@ async def close_browser(
     """
     Clean up browser resources.
 
+    Handles cases where the browser connection may already be closed
+    (e.g., after Ctrl+C or browser crash).
+
     Args:
         playwright: Playwright instance
         browser: Browser instance
     """
-    await browser.close()
-    await playwright.stop()
+    try:
+        await browser.close()
+    except Exception:
+        # Browser connection already closed, ignore
+        pass
+
+    try:
+        await playwright.stop()
+    except Exception:
+        # Playwright already stopped, ignore
+        pass
 
 
 async def check_auth_status(page: Page) -> bool:
