@@ -29,7 +29,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install playwright rich
 
 # Install browser
-playwright install chromium
+python -m playwright install chromium
 ```
 
 ## Cookie Setup
